@@ -1,0 +1,132 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Diamondhead – Ben 10’s Crystal Warrior</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#040a0a;
+      --panel:#0f0f18;
+      --accent:#00d0ff; /* cyan blue */
+      --glow: 0 0 18px rgba(0,208,255,0.1), 0 0 48px rgba(0,180,255,0.06);
+      --blue1: #001f37;
+      --blue2: #004466;
+      --glass: rgba(255,255,255,0.03);
+      --radius: 14px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Montserrat, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(0,128,255,0.18), transparent),
+                  radial-gradient(800px 400px at 90% 90%, rgba(0,255,255,0.06), transparent),
+                  linear-gradient(180deg,var(--bg), #071313 80%);
+      color:#e6f6ff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:32px;
+      display:flex;
+      justify-content:center;
+    }
+    .container{width:min(1100px, 96%);} 
+    header{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      padding:18px 22px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      box-shadow:var(--glow);border:1px solid rgba(255,255,255,0.03);margin-bottom:28px;
+    }
+    .title{display:flex;flex-direction:column;}
+    .title h1{margin:0;font-family:Orbitron;font-weight:700;letter-spacing:0.6px;font-size:20px;text-shadow:0 2px 10px rgba(0,0,0,0.6);}
+    .title p{margin:2px 0 0;font-size:13px;color:#9b99a6}
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;}
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));padding:22px;border-radius:16px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 12px 30px rgba(0,0,0,0.6), 0 0 40px rgba(0,180,255,0.08);position:relative;overflow:hidden;}
+    .hero-image{width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:12px;}
+    .hero-image img{width:100%;max-width:420px;border-radius:12px;filter:drop-shadow(0 12px 30px rgba(0,208,255,0.08));transition:transform .8s cubic-bezier(.2,.9,.2,1);}
+    .hero-card:hover .hero-image img{transform:translateY(-8px) rotate(-1deg) scale(1.02)}
+    .meta{padding:6px 14px;border-radius:12px;background:linear-gradient(120deg,var(--blue1), var(--blue2));color:var(--accent);font-weight:700;display:inline-block;margin-bottom:12px;}
+    .desc{color:#dcecff;line-height:1.6;padding-top:4px;}
+    dl{display:grid;grid-template-columns:150px 1fr;gap:8px 18px;margin:14px 0 0}
+    dt{opacity:0.8;color:#9aa}
+    dd{margin:0}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));border-radius:12px;padding:14px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 24px rgba(0,0,0,0.6);text-align:center;}
+    .card h3{margin:6px 0 2px;font-family:Orbitron;font-size:14px}
+    .card p{margin:0;font-size:13px;color:#b9eaff}
+    .gallery{margin-top:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    .gallery img{width:100%;height:120px;object-fit:cover;border-radius:8px;border:1px solid rgba(255,255,255,0.03);transition:transform .28s ease}
+    .gallery img:hover{transform:scale(1.06)}
+    footer{margin-top:28px;padding:18px;border-radius:12px;background:transparent;border-top:1px dashed rgba(255,255,255,0.03);text-align:center;color:#9aa}
+    @media (max-width:920px){.hero{grid-template-columns:1fr;}.gallery{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:520px){header{flex-direction:column;align-items:flex-start}.gallery img{height:100px}.cards{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="title">
+        <h1>Diamondhead – Ben 10’s Crystal Warrior</h1>
+        <p>Petrosapien • Petropia</p>
+      </div>
+      <div class="meta"> DIAMOND HEAD</div>
+    </header><main class="hero">
+  <section class="hero-card">
+    <div class="meta">Species: Petrosapien</div>
+    <div class="hero-image">
+    </div>
+    <div class="desc">
+      <p><strong>Diamondhead</strong> is a Petrosapien from the crystal planet Petropia. His body is made of extremely durable crystal that can refract energy attacks, form weapons, and regenerate when damaged. He is one of Ben’s most reliable combat aliens.</p>
+
+      <dl>
+        <dt>Homeworld</dt>
+        <dd>Petropia</dd>
+
+        <dt>Abilities</dt>
+        <dd>Crystal generation, weapon creation, durability, energy reflection</dd>
+
+        <dt>Weakness</dt>
+        <dd>Vulnerable to sonic vibrations and shattering from intense force</dd>
+      </dl>
+
+      <div class="cards" style="margin-top:18px;">
+        <article class="card">
+          <h3>First appearance</h3>
+          <p>Ben 10 (Original Series)</p>
+        </article>
+        <article class="card">
+          <h3>Notable Trait</h3>
+          <p>Body made of living crystal</p>
+        </article>
+        <article class="card">
+          <h3>Notable Feat</h3>
+          <p>Rebuilt Petropia and defeated Vilgax’s armies</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <aside>
+    <div style="background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));padding:20px;border-radius:14px;border:1px solid rgba(255,255,255,0.03);box-shadow:var(--glow)">
+      <h2 style="margin:0 0 10px;font-family:Orbitron;">Quick Gallery</h2>
+      <p style="margin:0 0 12px;color:#bfc;">Images below are placeholders — replace with official artwork or screenshots.</p>
+      <div class="gallery">
+        <img src="d1.jpg" alt="Diamondhead image 1" />
+        <img src="d2.jpg" alt="Diamondhead image 2" />
+        <img src="d3.jpg" alt="Diamondhead image 3" />
+        <img src="diamond_head-removebg-preview.png" alt="Diamondhead image 4" />
+      </div>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  <small>Page for Diamondhead from Ben 10</small>
+</footer>
+
+  </div>
+</body>
+</html>

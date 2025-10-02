@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ben 10 Universe</title>
+  <link rel="icon" type="image/png" href="se1.jpg">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      background: radial-gradient(1000px 600px at 20% 20%, rgba(0,255,136,0.12), transparent),
+            radial-gradient(800px 400px at 80% 80%, rgba(0,100,60,0.2), transparent),
+            linear-gradient(180deg, #02080a, #081010 80%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Animated background particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #00ff88;
+      border-radius: 50%;
+      animation: float 6s infinite linear;
+      opacity: 0.7;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.7; }
+      90% { opacity: 0.7; }
+      100% { transform: translateY(-10px) rotate(360deg); opacity: 0; }
+    }
+
+    /* Header */
+    header {
+      position: relative;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid #00ff88;
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0, 255, 136, 0.2);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(45deg, #00ff88, #00cc6a);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #0f0f23;
+      box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+    }
+
+    header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(45deg, #00ff88, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    nav a:hover::before {
+      left: 100%;
+    }
+
+    nav a:hover {
+      color: #00ff88;
+      background: rgba(0, 255, 136, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* Main Content */
+    main {
+      position: relative;
+      z-index: 10;
+      padding: 60px 20px;
+      text-align: center;
+      min-height: calc(100vh - 140px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .title {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #00ff88, #ffffff, #00cc6a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+    }
+
+    .subtitle {
+      font-size: 20px;
+      color: #cccccc;
+      margin-bottom: 60px;
+      font-weight: 300;
+    }
+
+    /* 3D Carousel */
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      perspective: 1500px;
+      margin: 40px 0;
+    }
+
+    .carousel {
+      position: relative;
+      width: 800px;
+      height: 600px;
+      margin: 0 auto;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .character {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      top: 50%;
+      left: 50%;
+      transform-origin: center;
+      transition: all 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .character-card {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, rgba(0, 255, 136, 0.1), rgba(0, 204, 106, 0.05));
+      border: 2px solid #00ff88;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 255, 136, 0.2);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .character-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+      transform: rotate(45deg);
+      transition: all 0.6s ease;
+      opacity: 0;
+    }
+
+    .character.active .character-card::before {
+      opacity: 1;
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    }
+
+    .character-icon {
+      font-size: 100px;
+      margin-bottom: 15px;
+      filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.5));
+    }
+
+    .character-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: #00ff88;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .character.active {
+      z-index: 10;
+    }
+
+    .character.active .character-card {
+      transform: scale(1.2);
+      border-color: #ffffff;
+      box-shadow: 0 12px 48px rgba(0, 255, 136, 0.4), 0 0 0 4px rgba(255, 255, 255, 0.2);
+    }
+
+    .character.active .character-name {
+      color: #ffffff;
+    }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 20px 0 40px 0;
+      position: relative;
+      z-index: 20;
+    }
+
+    .control-btn {
+      background: linear-gradient(145deg, #00ff88, #00cc6a);
+      border: none;
+      padding: 15px 30px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f0f23;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .control-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      transform: translate(-50%, -50%);
+    }
+
+    .control-btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .control-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 255, 136, 0.5);
+    }
+
+    .control-btn:active {
+      transform: translateY(-1px);
+    }
+
+    /* Character Info */
+    .character-info {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 30px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .info-name {
+      font-size: 32px;
+      font-weight: 800;
+      color: #00ff88;
+      margin-bottom: 10px;
+    }
+
+    .info-description {
+      font-size: 18px;
+      color: #cccccc;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .info-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 15px;
+      background: rgba(0, 255, 136, 0.1);
+      border-radius: 10px;
+      border: 1px solid rgba(0, 255, 136, 0.2);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #999999;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+
+    .stat-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: #00ff88;
+    }
+
+    /* Footer */
+    footer {
+      position: relative;
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.8);
+      border-top: 2px solid #00ff88;
+      padding: 30px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-text {
+      color: #cccccc;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 15px;
+    }
+
+    .footer-links a {
+      color: #00ff88;
+      text-decoration: none;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: #ffffff;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      nav {
+        gap: 15px;
+      }
+
+      .title {
+        font-size: 36px;
+      }
+
+      .carousel-container {
+        height: 400px;
+      }
+
+      .carousel {
+        width: 600px;
+        height: 400px;
+      }
+       .video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* fill the screen without black bars */
+    }
+
+      .character {
+        width: 220px;
+        height: 220px;
+      }
+
+      .character-icon {
+        font-size: 65px;
+      }
+
+      .controls {
+        gap: 15px;
+      }
+
+      .control-btn {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+      
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <div class="logo-icon">10</div>
+      <h1>Ben 10 Universe</h1>
+    </div>
+    
+      <a href="home.html">Home</a>
+      <a href="intro.html">Intro</a>
+      
+      <a href="https://wa.me/916200132572?text=Hello%2C%20I%20need%20help!" target="_blank">Support</a>
+  
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <h2 class="title">Choose Your Alien</h2>
+    <p class="subtitle">Select from Ben's most powerful transformations</p>
+
+    <div class="carousel-container">
+      <div class="carousel" id="carousel">
+        <div class="character active" data-index="0">
+          <div class="character-card">
+            <div class="character-icon"><a href="alien_x.html"><img src="alien_x-removebg-preview.png" alt="ALIEN x"> </a></div>
+            <div class="character-name">ALIEN X</div>
+          </div>
+        </div>
+        <div class="character" data-index="1">
+          <div class="character-card">
+            <div class="character-icon"><a href="big_chill.html"><img src="Big_Chill_Reboot-removebg-preview.png" alt="BIG CHILL" width="180px"></a></div>
+            <div class="character-name">BIG CHILL</div>
+          </div>
+        </div>
+        <div class="character" data-index="2">
+          <div class="character-card">
+            <div class="character-icon"><a href="diamond_head.html"><img src="diamond_head-removebg-preview.png" alt="DIAMOND HEAD" width="190px"></a>
+            </div>
+            <div class="character-name">DIAMOND HEAD</div>
+          </div>
+        </div>
+        <div class="character" data-index="3">
+          <div class="character-card">
+            <div class="character-icon"><a href="echo_echo.html"><img src="eco-removebg-preview.png" alt="ECO ECO" width="150px"></a></div>
+            <div class="character-name">ECHO ECHO</div>
+          </div>
+        </div>
+        <div class="character" data-index="4">
+          <div class="character-card">
+            <div class="character-icon"><a href="heat_blast.html"><img src="head_blast-removebg-preview.png" alt="HEAT BLAST" width="150px"></a></div>
+            <div class="character-name">HEAT BLAST</div>
+          </div>
+        </div>
+        <div class="character" data-index="5">
+          <div class="character-card">
+            <div class="character-icon"><a href="upgrade.html"><img src="upgrade-removebg-preview.png" alt="UPGRADE"></a></div>
+            <div class="character-name">UPGRADE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="control-btn" id="prevBtn">◀ Previous</button>
+      <button class="control-btn" id="nextBtn">Next ▶</button>
+    </div>
+
+    <div class="character-info" id="characterInfo">
+      <div class="info-name">ALIEN X</div>
+      <div class="info-description">The most powerful alien in Ben's arsenal, capable of warping reality itself. Alien X possesses omnipotent abilities but requires unanimous agreement between his three personalities to act.</div>
+      <div class="info-stats">
+        <div class="stat">
+          <div class="stat-label">Power Level</div>
+          <div class="stat-value">∞</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Speed</div>
+          <div class="stat-value">Instant</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Intelligence</div>
+          <div class="stat-value">Cosmic</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Rarity</div>
+          <div class="stat-value">Legendary</div>
+        </div>
+      </div>
+    </div>
+  </main>
+   
+  </div>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Card Layout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-black to-gray-800 min-h-screen py-12 px-4">
+    <div class="max-w-7xl mx-auto bg-black rounded-2xl shadow-2xl overflow-hidden border-2 border-green-400">
+        <!-- First Section: Video Left, Text Right -->
+        <div class="flex flex-col lg:flex-row">
+            <!-- Video -->
+            <div class="lg:w-1/2 bg-gradient-to-br from-[#0a0f28] via-[#121a33]to-[#1b223d] flex items-center justify-center p-4">
+                <div class="relative w-full max-w-sm aspect-video bg-black rounded-lg overflow-hidden border-2 border-green-400 shadow-lg shadow-green-400/50">
+                    <video class="w-full h-full object-cover" autoplay muted loop>
+                        <source src="video1.mp4" type="video/mp4">
+                        <!-- Fallback content -->
+                        <div class="w-full h-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-white rounded-full flex items-center justify-center">
+                                    <span class="text-2xl font-bold text-green-600">10</span>
+                                </div>
+                                <p class="text-sm">Omnitrix Activated</p>
+                            </div>
+                        </div>
+                    </video>
+                    <div class="absolute inset-0 bg-green-400/20 pointer-events-none"></div>
+                </div>
+            </div>
+            <!-- Text Content -->
+            <div class="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center bg-gradient-to-br from-gray-900 to-black">
+                <h2 class="text-3xl font-bold text-green-400 mb-4 font-mono">OMNITRIX POWER</h2>
+                <p class="text-gray-300 leading-relaxed text-lg">
+                    The Omnitrix contains the DNA of over a million alien species from across the galaxy. With the power to transform into any alien hero, Ben Tennyson protects Earth and the universe from threats beyond imagination.
+                </p>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t border-green-400/30"></div>
+
+        <!-- Second Section: Text Left, Video Right -->
+        <div class="flex flex-col lg:flex-row-reverse">
+            <!-- Video -->
+            <div class="lg:w-1/2 bg-gradient-to-br from-[#0a0f28] via-[#121a33]to-[#1b223d] flex items-center justify-center p-4">
+                <div class="relative w-full max-w-sm aspect-video bg-black rounded-lg overflow-hidden border-2 border-blue-400 shadow-lg shadow-blue-400/50">
+                    <video class="w-full h-full object-cover" autoplay muted loop>
+                        <source src="video.mp4" type="video/mp4">
+                        <!-- Fallback content -->
+                        <div class="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <div class="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center border-4 border-blue-400">
+                                    <span class="text-xl font-bold text-blue-600">AF</span>
+                                </div>
+                                <p class="text-sm">Alien Force</p>
+                            </div>
+                        </div>
+                    </video>
+                    <div class="absolute inset-0 bg-blue-400/20 pointer-events-none"></div>
+                </div>
+            </div>
+            <!-- Text Content -->
+            <div class="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center bg-gradient-to-br from-gray-900 to-black">
+                <h2 class="text-3xl font-bold text-blue-400 mb-4 font-mono">ALIEN FORCE</h2>
+                <p class="text-gray-300 leading-relaxed text-lg">
+                    Five years later, Ben discovers new aliens and faces greater challenges. With Gwen's magical abilities and Kevin's powers, the team battles the Highbreed invasion and uncovers the secrets of the Omnitrix's true potential.
+                </p>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t border-green-400/30"></div>
+
+        <!-- Third Section: Video Left, Text Right -->
+        <div class="flex flex-col lg:flex-row">
+            <!-- Video -->
+            <div class="lg:w-1/2 bg-gradient-to-br from-black-500 to-indigo-600 flex items-center justify-center p-4">
+                <div class="relative w-full max-w-sm aspect-video bg-black rounded-lg overflow-hidden border-2 border-red-400 shadow-lg shadow-red-400/50">
+                    <video class="w-full h-full object-cover" autoplay muted loop>
+                        <source src="video3.mp4" type="video/mp4">
+                        <!-- Fallback content -->
+                        <div class="w-full h-full bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-white rounded-full flex items-center justify-center border-4 border-red-400">
+                                    <span class="text-lg font-bold text-red-600">🔥</span>
+                                </div>
+                                <p class="text-sm">ALIEN X</p>
+                            </div>
+                        </div>
+                    </video>
+                    <div class="absolute inset-0 bg-red-400/20 pointer-events-none"></div>
+                </div>
+            </div>
+            <!-- Text Content -->
+            <div class="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center bg-gradient-to-br from-gray-900 to-black">
+                <h2 class="text-3xl font-bold text-red-400 mb-4 font-mono">ALIEN X</h2>
+                <p class="text-gray-300 leading-relaxed text-lg">
+                  Alien X is a Celestialsapien, a nigh-omnipotent, reality-warping alien species from the Ben 10 franchise. As one of Ben Tennyson's most powerful transformations, Alien X is capable of altering reality, time, and space with just a thought, but this immense power comes with a significant and difficult-to-manage weakness. 
+                </p>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t border-green-400/30"></div>
+
+        <!-- Fourth Section: Text Left, Video Right -->
+        <div class="flex flex-col lg:flex-row-reverse">
+            <!-- Video -->
+            <div class="lg:w-1/2 bg-gradient-to-br from-[#0a0f28] via-[#121a33]to-[#1b223d] flex items-center justify-center p-4">
+                <div class="relative w-full max-w-sm aspect-video bg-black rounded-lg overflow-hidden border-2 border-cyan-400 shadow-lg shadow-cyan-400/50">
+                    <video class="w-full h-full object-cover" autoplay muted loop>
+                        <source src="bigchill.mp4" type="video/mp4">
+                        <!-- Fallback content -->
+                        <div class="w-full h-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-white rounded-full flex items-center justify-center border-4 border-cyan-400">
+                                    <span class="text-lg font-bold text-cyan-600">💎</span>
+                                </div>
+                                <p class="text-sm">BIG CHILL</p>
+                            </div>
+                        </div>
+                    </video>
+                    <div class="absolute inset-0 bg-cyan-400/20 pointer-events-none"></div>
+                </div>
+            </div>
+            <!-- Text Content -->
+            <div class="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center bg-gradient-to-br from-gray-900 to-black">
+                <h2 class="text-3xl font-bold text-cyan-400 mb-4 font-mono">BIG CHILL</h2>
+                <p class="text-gray-300 leading-relaxed text-lg">
+                  Big Chill is one of Ben Tennyson's transformations in the Ben 10 franchise, first appearing in Ben 10: Alien Force. As a Necrofriggian from the planet Kylmyys, he possesses a combination of cryokinesis (ice manipulation) and intangibility abilities. 
+                </p>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t border-green-400/30"></div>
+
+        <!-- Fifth Section: Video Left, Text Right -->
+        <div class="flex flex-col lg:flex-row">
+            <!-- Video -->
+            <div class="lg:w-1/2 bg-gradient-to-br from-[#0a0f28] via-[#121a33]to-[#1b223d] flex items-center justify-center p-4">
+                <div class="relative w-full max-w-sm aspect-video bg-black rounded-lg overflow-hidden border-2 border-purple-400 shadow-lg shadow-purple-400/50">
+                    <video class="w-full h-full object-cover" autoplay muted loop>
+                        <source src="dia.mp4" type="video/mp4">
+                        <!-- Fallback content -->
+                        <div class="w-full h-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-white rounded-full flex items-center justify-center border-4 border-purple-400">
+                                    <span class="text-lg font-bold text-purple-600">👻</span>
+                                </div>
+                                <p class="text-sm">DIAMOND HEAD</p>
+                            </div>
+                        </div>
+                    </video>
+                    <div class="absolute inset-0 bg-purple-400/20 pointer-events-none"></div>
+                </div>
+            </div>
+            <!-- Text Content -->
+            <div class="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center bg-gradient-to-br from-gray-900 to-black">
+                <h2 class="text-3xl font-bold text-purple-400 mb-4 font-mono">DIAMOND HEAD</h2>
+                <p class="text-gray-300 leading-relaxed text-lg">
+                  Diamondhead is the Omnitrix's DNA sample of a Petrosapien, a silicon-based alien species from the destroyed planet Petropia. As one of Ben Tennyson's original ten aliens, he has been a consistently reliable and powerful transformation throughout the Ben 10 franchise
+                </p>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t border-green-400/30"></div>
+
+        <!-- Sixth Section: Text Left, Video Right -->
+        <div class="flex flex-col lg:flex-row-reverse">
+            <!-- Video -->
+            <div class="lg:w-1/2 bg-gradient-to-br from-[#0a0f28] via-[#121a33]to-[#1b223d] flex items-center justify-center p-4">
+                <div class="relative w-full max-w-sm aspect-video bg-black rounded-lg overflow-hidden border-2 border-yellow-400 shadow-lg shadow-yellow-400/50">
+                    <video class="w-full h-full object-cover" autoplay muted loop>
+                        <source src="eco.mp4" type="video/mp4">
+                        <!-- Fallback content -->
+                        <div class="w-full h-full bg-gradient-to-br from-yellow-400 to-orange-400 flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-white rounded-full flex items-center justify-center border-4 border-yellow-400">
+                                    <span class="text-lg font-bold text-yellow-600">⚡</span>
+                                </div>
+                                <p class="text-sm">ECHO ECHO</p>
+                            </div>
+                        </div>
+                    </video>
+                    <div class="absolute inset-0 bg-yellow-400/20 pointer-events-none"></div>
+                </div>
+            </div>
+            <!-- Text Content -->
+            <div class="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center bg-gradient-to-br from-gray-900 to-black">
+                <h2 class="text-3xl font-bold text-yellow-400 mb-4 font-mono">ECHO ECHO</h2>
+                <p class="text-gray-300 leading-relaxed text-lg">
+                  Echo Echo is Ben Tennyson's transformation of a Sonorosian, a species of silicon-based lifeforms from the planet Sonorosia. Unlike Ditto, whose clones are connected and share pain, Echo Echo's duplicates are independent and can be destroyed without affecting the others. 
+                </p>
+            </div>
+        </div>
+        <!-- Divider -->
+        <div class="border-t border-green-400/30"></div>
+
+        <!-- Fifth Section: Video Left, Text Right -->
+        <div class="flex flex-col lg:flex-row">
+            <!-- Video -->
+            <div class="lg:w-1/2 bg-gradient-to-br from-[#0a0f28] via-[#121a33]to-[#1b223d] flex items-center justify-center p-4">
+                <div class="relative w-full max-w-sm aspect-video bg-black rounded-lg overflow-hidden border-2 border-purple-400 shadow-lg shadow-purple-400/50">
+                    <video class="w-full h-full object-cover" autoplay muted loop>
+                        <source src="heat.mp4" type="video/mp4">
+                        <!-- Fallback content -->
+                        <div class="w-full h-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-white rounded-full flex items-center justify-center border-4 border-purple-400">
+                                    <span class="text-lg font-bold text-purple-600">👻</span>
+                                </div>
+                                <p class="text-sm">HEAT BLAST</p>
+                            </div>
+                        </div>
+                    </video>
+                    <div class="absolute inset-0 bg-purple-400/20 pointer-events-none"></div>
+                </div>
+            </div>
+            <!-- Text Content -->
+            <div class="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center bg-gradient-to-br from-gray-900 to-black">
+                <h2 class="text-3xl font-bold text-purple-400 mb-4 font-mono">HEATBLAST</h2>
+                <p class="text-gray-300 leading-relaxed text-lg">
+                  Heatblast is the very first alien Ben Tennyson transforms into in the Ben 10 franchise. He is a Pyronite from the planet-like star Pyros and has a body made of rock and magma. 
+\                </p>
+            </div>
+        </div>
+        <!-- Divider -->
+        <div class="border-t border-green-400/30"></div>
+
+        <!-- Sixth Section: Text Left, Video Right -->
+        <div class="flex flex-col lg:flex-row-reverse">
+            <!-- Video -->
+            <div class="lg:w-1/2 bg-gradient-to-br from-[#0a0f28] via-[#121a33]to-[#1b223d] flex items-center justify-center p-4">
+                <div class="relative w-full max-w-sm aspect-video bg-black rounded-lg overflow-hidden border-2 border-yellow-400 shadow-lg shadow-yellow-400/50">
+                    <video class="w-full h-full object-cover" autoplay muted loop>
+                        <source src="upg.mp4" type="video/mp4">
+                        <!-- Fallback content -->
+                        <div class="w-full h-full bg-gradient-to-br from-yellow-400 to-orange-400 flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-white rounded-full flex items-center justify-center border-4 border-yellow-400">
+                                    <span class="text-lg font-bold text-yellow-600">⚡</span>
+                                </div>
+                                <p class="text-sm">UPGRADE</p>
+                            </div>
+                        </div>
+                    </video>
+                    <div class="absolute inset-0 bg-yellow-400/20 pointer-events-none"></div>
+                </div>
+            </div>
+            <!-- Text Content -->
+            <div class="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center bg-gradient-to-br from-gray-900 to-black">
+                <h2 class="text-3xl font-bold text-yellow-400 mb-4 font-mono">UPGRADE</h2>
+                <p class="text-gray-300 leading-relaxed text-lg">
+                  Upgrade is the Omnitrix's DNA sample of a Galvanic Mechamorph, a technological, liquid-metal alien species from the moon Galvan B. As one of Ben Tennyson's original ten aliens, he possesses the ability to merge with, control, and "upgrade" any form of technology.
+                </p>
+            </div>
+        </div>
+        
+                       
+
+    </div>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'988241937250a762',t:'MTc1OTM4NzcyOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
+  
+</div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <p class="footer-text">© 2025 Ben 10 Universe - Experience the Power of the Omnitrix</p>
+      <div class="footer-links">
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Service</a>
+        <a href="#support">Support</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Character data with detailed information
+    const characterData = [
+      {
+        name: "ALIEN X",
+        description: "The most powerful alien in Ben's arsenal, capable of warping reality itself. Alien X possesses omnipotent abilities but requires unanimous agreement between his three personalities to act.",
+        stats: {
+          power: "∞",
+          speed: "Instant",
+          intelligence: "Cosmic",
+          rarity: "Legendary"
+        }
+      },
+      {
+        name: "BIG CHILL",
+        description: "A Necrofriggian with the ability to become intangible and breathe freezing vapor. Big Chill can phase through solid matter and freeze enemies with his icy breath.",
+        stats: {
+          power: "8/10",
+          speed: "7/10",
+          intelligence: "6/10",
+          rarity: "Rare"
+        }
+      },
+      {
+        name: "DIAMOND HEAD",
+        description: "A Petrosapien with a body composed of ultra-hard crystal. Diamond Head can manipulate crystal structures, create projectiles, and form protective barriers.",
+        stats: {
+          power: "7/10",
+          speed: "5/10",
+          intelligence: "7/10",
+          rarity: "Common"
+        }
+      },
+      {
+        name: "ECHO ECHO",
+        description: "A Sonorosian with the ability to duplicate himself and manipulate sound waves. Echo Echo can create sonic screams and coordinate multiple copies for complex strategies.",
+        stats: {
+          power: "6/10",
+          speed: "6/10",
+          intelligence: "8/10",
+          rarity: "Uncommon"
+        }
+      },
+      {
+        name: "HEAT BLAST",
+        description: "A Pyronite with complete control over fire and heat. Heat Blast can generate intense flames, create fire projectiles, and absorb heat from his surroundings.",
+        stats: {
+          power: "8/10",
+          speed: "6/10",
+          intelligence: "6/10",
+          rarity: "Common"
+        }
+      },
+      {
+        name: "UPGRADE",
+        description: "A Galvanic Mechamorph with the ability to merge with and enhance any technology. Upgrade can improve machines beyond their original capabilities and control them remotely.",
+        stats: {
+          power: "7/10",
+          speed: "8/10",
+          intelligence: "9/10",
+          rarity: "Rare"
+        }
+      }
+    ];
+
+    // DOM elements
+    const carousel = document.getElementById('carousel');
+    const characters = carousel.querySelectorAll('.character');
+    const characterInfo = document.getElementById('characterInfo');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let currentIndex = 0;
+    const totalCharacters = characters.length;
+
+    // Create animated background particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 6 + 's';
+        particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Update carousel positions
+    function updateCarousel() {
+      characters.forEach((character, index) => {
+        const angle = ((index - currentIndex) * 360) / totalCharacters;
+        const radius = 350;
+        const x = Math.sin((angle * Math.PI) / 180) * radius;
+        const z = Math.cos((angle * Math.PI) / 180) * radius;
+        
+        character.classList.remove('active');
+        
+        if (index === currentIndex) {
+          character.style.transform = `translate(-50%, -50%) translateZ(100px) scale(1)`;
+          character.style.opacity = '1';
+          character.classList.add('active');
+        } else {
+          character.style.transform = `translate(-50%, -50%) translateX(${x}px) translateZ(${z}px) scale(0.7)`;
+          character.style.opacity = '0.6';
+        }
+      });
+      
+      updateCharacterInfo();
+    }
+
+    // Update character information display
+    function updateCharacterInfo() {
+      const character = characterData[currentIndex];
+      const infoHTML = `
+        <div class="info-name">${character.name}</div>
+        <div class="info-description">${character.description}</div>
+        <div class="info-stats">
+          <div class="stat">
+            <div class="stat-label">Power Level</div>
+            <div class="stat-value">${character.stats.power}</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Speed</div>
+            <div class="stat-value">${character.stats.speed}</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Intelligence</div>
+            <div class="stat-value">${character.stats.intelligence}</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Rarity</div>
+            <div class="stat-value">${character.stats.rarity}</div>
+          </div>
+        </div>
+      `;
+      characterInfo.innerHTML = infoHTML;
+    }
+
+    // Navigation functions
+    function nextCharacter() {
+      currentIndex = (currentIndex + 1) % totalCharacters;
+      updateCarousel();
+    }
+
+    function prevCharacter() {
+      currentIndex = (currentIndex - 1 + totalCharacters) % totalCharacters;
+      updateCarousel();
+    }
+
+    function selectCharacter(index) {
+      currentIndex = index;
+      updateCarousel();
+    }
+
+    // Event listeners
+    prevBtn.addEventListener('click', prevCharacter);
+    nextBtn.addEventListener('click', nextCharacter);
+
+    // Click on character to select
+    characters.forEach((character, index) => {
+      character.addEventListener('click', () => selectCharacter(index));
+    });
+
+    // Keyboard controls
+    document.addEventListener('keydown', (e) => {
+      switch(e.key) {
+        case 'ArrowLeft':
+          prevCharacter();
+          break;
+        case 'ArrowRight':
+          nextCharacter();
+          break;
+        case ' ':
+          e.preventDefault();
+          nextCharacter();
+          break;
+      }
+    });
+
+    // Auto-rotation (optional)
+    let autoRotate = false;
+    let autoRotateInterval;
+
+    function toggleAutoRotate() {
+      if (autoRotate) {
+        clearInterval(autoRotateInterval);
+        autoRotate = false;
+      } else {
+        autoRotateInterval = setInterval(nextCharacter, 3000);
+        autoRotate = true;
+      }
+    }
+
+    // Double-click to toggle auto-rotation
+    carousel.addEventListener('dblclick', toggleAutoRotate);
+
+    // Touch/swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    carousel.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    carousel.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      const diff = touchStartX - touchEndX;
+      
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          nextCharacter();
+        } else {
+          prevCharacter();
+        }
+      }
+    }
+
+    // Initialize
+    createParticles();
+    updateCarousel();
+
+    // Smooth scroll for navigation links
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Add smooth scroll behavior if sections exist
+      });
+    });
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'987a73ff43407a2a',t:'MTc1OTMwNTkwNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
+
+
+

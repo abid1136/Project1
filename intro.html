@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ben 10 Intro</title>
+  <style>
+    :root{
+      --green:#6bd425;
+      --dark:#050a0f;
+      --muted:#a9b7c6;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family: "Poppins", sans-serif;
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: radial-gradient(circle at center, #0c1c12 0%, #050a0f 100%);
+      color:white;
+      overflow:hidden;
+    }
+
+    .intro-container{
+      text-align:center;
+      max-width:600px;
+      padding:20px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    .logo{
+      width:180px;
+      height:180px;
+      margin:0 auto 20px;
+      background:url('images/ben10-logo.png') no-repeat center/contain;
+      animation: zoomIn 1.2s ease-in-out;
+    }
+
+    h1{
+      font-size:2.5rem;
+      margin-bottom:10px;
+    }
+    p{
+      font-size:1.1rem;
+      color:var(--muted);
+      margin-bottom:20px;
+    }
+
+    .btn{
+      display:inline-block;
+      background:var(--green);
+      color:#04120a;
+      font-weight:700;
+      padding:12px 24px;
+      border-radius:12px;
+      text-decoration:none;
+      transition:all .3s ease;
+      font-size:1.1rem;
+      box-shadow:0 6px 20px rgba(107,212,37,0.25);
+    }
+    .btn:hover{
+      background:#7ff842;
+      transform:translateY(-3px);
+    }
+
+    /* Animations */
+    @keyframes fadeIn{
+      from{opacity:0;transform:translateY(30px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    @keyframes zoomIn{
+      from{transform:scale(0.6);opacity:0}
+      to{transform:scale(1);opacity:1}
+    }
+  </style>
+</head>
+<body>
+  <div class="intro-container">
+    <!-- Replace logo image with Ben 10 logo -->
+    <div class="logo"></div>
+    <h1>Welcome to Ben 10 Seasons Hub</h1>
+    <p>Dive into every Ben 10 series, from Classic to Reboot. Discover posters, aliens, and more!</p>
+    <!-- Link to your homepage file -->
+    <a class="btn" href="index.html">Enter Site</a>
+  </div>
+</body>
+</html>

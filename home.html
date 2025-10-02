@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ben 10 — Seasons Hub</title>
+  <style>
+    /* --------- Reset & base --------- */
+    :root{
+      --accent:#6bd425;   /* Omnitrix green */
+      --dark:#0b0b0f;
+      --muted:#6b6f76;
+      --card-bg:rgba(255,255,255,0.04);
+      --glass: rgba(255,255,255,0.03);
+      --max-w:1200px;
+      --radius:14px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background: linear-gradient(180deg,#071017 0%, #08131a 60%);
+      color:#e9f0f6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max-w);margin:0 auto;padding:28px;}
+
+    /* --------- Header / Nav --------- */
+    header{padding:18px 0;display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;gap:12px;align-items:center}
+    .logo .mark{
+      width:56px;height:56px;border-radius:12px;
+      background: linear-gradient(135deg,#a7f34d,#2ec07f);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 6px 18px rgba(46,192,127,0.14);
+      font-weight:800;color:#062214;font-size:18px;
+    }
+    nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0}
+    nav a.nav-link{padding:8px 12px;border-radius:10px;color:#cfeee0;font-weight:600}
+    nav a.nav-link:hover{background:rgba(255,255,255,0.03)}
+
+    /* --------- Hero --------- */
+    .hero{
+      margin-top:14px;
+      background:
+        radial-gradient(600px 200px at 10% 10%, rgba(107,212,37,0.06), transparent 10%),
+        linear-gradient(180deg, rgba(255,255,255,0.02), transparent 30%);
+      border-radius:18px;padding:28px;display:flex;gap:24px;align-items:center;
+      backdrop-filter: blur(6px);
+    }
+    .hero-left{flex:1}
+    .hero-title{font-size:28px;margin:0 0 8px}
+    .hero-sub{color:var(--muted);margin-bottom:16px}
+    .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{
+      background:var(--accent);color:#04120a;padding:10px 16px;border-radius:12px;font-weight:700;
+      box-shadow:0 6px 18px rgba(107,212,37,0.14);
+    }
+    .btn.secondary{
+      background:transparent;border:1px solid rgba(255,255,255,0.06);color:#dbe9ee;
+    }
+
+    .hero-right{width:320px;min-width:220px}
+    .hero-poster{
+      width:100%;height:220px;background-size:cover;background-position:center;border-radius:12px;
+      box-shadow:0 12px 40px rgba(2,6,10,0.6) inset;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    /* --------- Seasons grid --------- */
+    .section{margin-top:28px}
+    h2.section-title{margin:0 0 14px;font-size:20px}
+    .grid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px;padding:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.03);
+      transition:transform .22s ease, box-shadow .22s ease;
+    }
+    .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,10,0.6)}
+    .poster{height:160px;border-radius:10px;background-size:cover;background-position:center;margin-bottom:12px}
+    .card h3{margin:0 0 6px;font-size:16px}
+    .meta{color:var(--muted);font-size:13px;margin-bottom:10px}
+    .card p{margin:0 0 10px;color:#dfe9ed;font-size:14px}
+    .tags{display:flex;gap:8px;flex-wrap:wrap}
+    .tag{font-size:12px;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.02);color:var(--muted)}
+
+    /* --------- Featured / Characters --------- */
+    .featured{display:flex;gap:18px;align-items:center}
+    .featured .hero-small{flex:1;padding:14px;border-radius:12px;background:var(--glass);border:1px solid rgba(255,255,255,0.02)}
+    .characters{display:flex;gap:12px;flex-wrap:wrap}
+    .character{width:120px;text-align:center}
+    .character img{width:100%;border-radius:10px}
+
+    /* --------- Contact / Support --------- */
+    .support{display:flex;gap:18px;align-items:center;justify-content:space-between;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
+    .support-left{flex:1}
+    .whatsapp{display:inline-flex;gap:8px;align-items:center;background:#25D366;color:#02220f;padding:10px 12px;border-radius:10px;font-weight:700}
+
+    /* --------- Footer --------- */
+    footer{margin-top:28px;padding:18px 0;color:var(--muted);font-size:13px;text-align:center}
+
+    /* --------- Responsive --------- */
+    @media (max-width:1000px){
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .hero{flex-direction:column;align-items:stretch}
+      .hero-right{width:100%}
+    }
+    @media (max-width:640px){
+      .grid{grid-template-columns:1fr}
+      nav ul{display:none}
+      header{gap:12px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <div class="mark">B10</div>
+        <div>
+          <div style="font-weight:800">Ben 10 — Seasons Hub</div>
+          <div style="font-size:12px;color:var(--muted)">Comprehensive guide to each season & top aliens</div>
+        </div>
+      </div>
+
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a class="nav-link" href="#seasons">Seasons</a></li>
+          <li><a class="nav-link" href="#characters">Characters</a></li>
+          <li><a class="nav-link" href="#featured">Featured</a></li>
+          <li><a class="nav-link" href="#support">Support</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" role="banner" aria-labelledby="hero-heading">
+      <div class="hero-left">
+        <h1 id="hero-heading" class="hero-title">Explore every Ben 10 season — from Classic to Reboot</h1>
+        <p class="hero-sub">
+          Episode summaries, top aliens, notable villains, and posters for each season. Pick a season to view details below.
+        </p>
+        <div class="hero-cta">
+          <a class="btn" href="#seasons">Browse Seasons</a>
+          <a class="btn secondary" href="#characters">See Top Aliens</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <!-- Replace background-image URL below with your chosen hero/poster image -->
+        <div class="hero-poster" style="background-image:url('https://images.wallpapers.com/placeholder-ben10.jpg');">
+        </div>
+      </div>
+    </section>
+
+    <!-- SEASONS GRID -->
+    <section id="seasons" class="section" aria-labelledby="seasons-title">
+      <h2 id="seasons-title" class="section-title">All Seasons</h2>
+
+      <div class="grid">
+        <!-- Card 1: Ben 10 (Classic) -->
+        <article class="card" aria-labelledby="s1">
+          <div class="poster" style="background-image:url('se1.jpg');" role="img" aria-label="Ben 10 Classic poster"></div>
+          <h3 id="s1">Ben 10 (Classic)</h3>
+          <div class="meta">2005 · Action · 4 seasons</div>
+          <p>Introductory series where Ben finds the Omnitrix and first meets aliens like Heatblast, Four Arms and Diamondhead.</p>
+          <div class="tags">
+            <span class="tag">Key Alien: Four Arms</span>
+            <span class="tag">Notable Villain: Vilgax</span>
+          </div>
+        </article>
+
+        <!-- Card 2: Alien Force -->
+        <article class="card" aria-labelledby="s2">
+          <div class="poster" style="background-image:url('se2.jpg');" role="img" aria-label="Ben 10 Alien Force poster"></div>
+          <h3 id="s2">Ben 10: Alien Force</h3>
+          <div class="meta">2008 · Darker tone · 3 seasons</div>
+          <p>Older Ben returns with new aliens and higher stakes — a fan-favourite for its more mature themes.</p>
+          <div class="tags">
+            <span class="tag">Key Alien: Big Chill</span>
+            <span class="tag">Notable Team: Gwen & Kevin</span>
+          </div>
+        </article>
+
+        <!-- Card 3: Ultimate Alien -->
+        <article class="card" aria-labelledby="s3">
+          <div class="poster" style="background-image:url('se3.jpg');" role="img" aria-label="Ben 10 Ultimate Alien poster"></div>
+          <h3 id="s3">Ben 10: Ultimate Alien</h3>
+          <div class="meta">2010 · Continuation · 2 seasons</div>
+          <p>Ben faces the consequences of being a public hero, plus the Omnitrix evolves into new Ultimate forms.</p>
+          <div class="tags">
+            <span class="tag">Key Alien: Ultimate Humungousaur</span>
+          </div>
+        </article>
+
+        <!-- Card 4: Omniverse -->
+        <article class="card" aria-labelledby="s4">
+          <div class="poster" style="background-image:url('omni1.jpg');" role="img" aria-label="Ben 10 Omniverse poster"></div>
+          <h3 id="s4">Ben 10: Omniverse</h3>
+          <div class="meta">2012 · Episodic & vibrant · 8 seasons* (varies)</div>
+          <p>Styles shift, timelines clash — Omniverse offers a fresh art style and many callbacks to earlier series.</p>
+          <div class="tags">
+            <span class="tag">Unique: Multiple art-styles</span>
+          </div>
+        </article>
+
+        <!-- Card 5: Reboot / New Series -->
+        <article class="card" aria-labelledby="s5">
+          <div class="poster" style="background-image:url('re.jpg');" role="img" aria-label="Ben 10 Reboot poster"></div>
+          <h3 id="s5">Ben 10 (Reboot)</h3>
+          <div class="meta">2016+ · Reimagined · Ongoing</div>
+          <p>A modern reboot aimed at new audiences — refreshed visuals and updated storytelling.</p>
+          <div class="tags">
+            <span class="tag">Focus: Younger audience</span>
+          </div>
+        </article>
+
+        <!-- Card 6: Specials / Movies -->
+        <article class="card" aria-labelledby="s6">
+          <div class="poster" style="background-image:url('mov.jpg');" role="img" aria-label="Ben 10 movie poster"></div>
+          <h3 id="s6">Movies & Specials</h3>
+          <div class="meta">Feature-length & TV specials</div>
+          <p>Standalone stories and crossovers — often great for canonical events or one-off adventures.</p>
+          <div class="tags">
+            <span class="tag">Movies</span>
+            <span class="tag">Crossovers</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- FEATURED & CHARACTERS -->
+    <section id="featured" class="section" aria-labelledby="featured-title">
+      <h2 id="featured-title" class="section-title">Featured — Top Aliens & Characters</h2>
+      <div class="featured">
+        <div class="hero-small">
+          <h3 style="margin-top:0">Top Aliens</h3>
+          <div class="characters" aria-hidden="false">
+            <!-- Replace src with your local/licensed images -->
+             <div class="character">
+              <img src="images.jpg" alt="Heatblast image">
+              <div style="margin-top:8px;font-weight:700">Heatblast</div>
+              <div style="font-size:12px;color:var(--muted)">Pyro-elemental alien</div>
+            </div>
+            <div class="character">
+              <img src="Ragnarok Anime.jpg" alt="Heatblast image">
+              <div style="margin-top:8px;font-weight:700">Heatblast</div>
+              <div style="font-size:12px;color:var(--muted)">Pyro-elemental alien</div>
+            </div>
+            <div class="character">
+              <img src="e15d61dbf0d3cdd5d7e3657cbd526ad9.jpg" alt="Heatblast image">
+              <div style="margin-top:8px;font-weight:700">Heatblast</div>
+              <div style="font-size:12px;color:var(--muted)">Pyro-elemental alien</div>
+            </div>
+            <div class="character">
+              <img src="5f4bbb4d4292907e0b33a534930cfcfc.jpg" alt="Heatblast image">
+              <div style="margin-top:8px;font-weight:700">Heatblast</div>
+              <div style="font-size:12px;color:var(--muted)">Pyro-elemental alien</div>
+            </div>
+            <div class="character">
+              <img src="156e09fa2379bce4fb2889bef64a3a38.jpg" alt="Heatblast image">
+              <div style="margin-top:8px;font-weight:700">Heatblast</div>
+              <div style="font-size:12px;color:var(--muted)">Pyro-elemental alien</div>
+            </div>
+            <div class="character">
+              <img src="b1472212727c00c0d2e1e668c9fd4666.jpg" alt="Heatblast image">
+              <div style="margin-top:8px;font-weight:700">Heatblast</div>
+              <div style="font-size:12px;color:var(--muted)">Pyro-elemental alien</div>
+            </div>
+            <div class="character">
+              <img src="a4a9457c5791cd6464ee4bdbf5393ee9.jpg" alt="Heatblast image">
+              <div style="margin-top:8px;font-weight:700">Heatblast</div>
+              <div style="font-size:12px;color:var(--muted)">Pyro-elemental alien</div>
+            </div>
+            <div class="character">
+              <img src="heat2.jpg" alt="Heatblast image">
+              <div style="margin-top:8px;font-weight:700">Heatblast</div>
+              <div style="font-size:12px;color:var(--muted)">Pyro-elemental alien</div>
+            </div>
+            <div class="character">
+              <img src="d1.jpg" alt="Diamondhead image">
+              <div style="margin-top:8px;font-weight:700">Diamondhead</div>
+              <div style="font-size:12px;color:var(--muted)">Crystal-bodied powerhouse</div>
+            </div>
+            <div class="character">
+              <img src="up2.jpg" alt="Upgrade image">
+              <div style="margin-top:8px;font-weight:700">Upgrade</div>
+              <div style="font-size:12px;color:var(--muted)">Tech assimilation alien</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="width:320px">
+          <h3 style="margin:0 0 8px">Season Spotlight</h3>
+          <p style="color:var(--muted);margin-top:0">This month: <strong>Alien Force</strong> — darker storytelling, character growth, and memorable arcs.</p>
+          <div style="display:flex;gap:10px;margin-top:12px">
+            <a class="btn" href="#s2">Read Season Summary</a>
+            <a class="btn secondary" href="#support">Get Support</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUPPORT -->
+    <section id="support" class="section" aria-labelledby="support-title">
+      <h2 id="support-title" class="section-title">Help & Support</h2>
+      <div class="support">
+        <div class="support-left">
+          <strong>Need help finding a season poster or episode guide?</strong>
+          <div style="color:var(--muted);margin-top:6px">Contact our support team — we can help with image sourcing tips, episode lists, and more.</div>
+        </div>
+
+        <div>
+          <!-- WhatsApp link: replace number below with your number (country code + number, no + / spaces) -->
+          <a class="whatsapp" href="https://wa.me/916200132572?text=Hi%20I%20need%20help%20with%20the%20Ben%2010%20site" target="_blank" rel="noopener">
+            <!-- simple svg WhatsApp icon -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="margin-right:6px">
+              <path d="M20.5 3.5L3.5 20.5V24L7.2 23.2C12.6 23.2 17.1 18.7 17.1 13.3L18 9.7L20.5 3.5Z" fill="white" opacity="0.06"/>
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.1-.472-.149-.672.15-.198.297-.767.967-.94 1.165-.173.198-.347.223-.644.074-1.758-.867-2.905-1.558-4.066-3.549-.306-.528.306-.49.88-1.635.098-.198.049-.372-.025-.521-.074-.149-.672-1.62-.921-2.219-.242-.579-.487-.5-.672-.51-.173-.01-.372-.012-.571-.012-.198 0-.521.074-.794.372-.273.297-1.04 1.016-1.04 2.479 0 1.463 1.064 2.881 1.213 3.079.148.198 2.095 3.2 5.076 4.487 3 .896 3. ` fill="#fff"/>
+            </svg>
+            WhatsApp Support
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <strong>Ben 10 — Seasons Hub</strong> ·All show art & characters © Abid</div>
+    </footer>
+  </div>
+
+  <!-- Optional: small script to lazy-load poster placeholders (no external libs) -->
+  <script>
+    // Replace these placeholders with actual images if you'd like simple lazy swap
+    document.addEventListener('DOMContentLoaded', function(){
+      // if you host images locally, ensure filenames match the ones used in HTML (images/*.jpg)
+      // nothing required here unless you want dynamic behavior
+    });
+  </script>
+</body>
+</html>
